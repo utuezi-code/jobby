@@ -1,80 +1,96 @@
 import Link from "next/link";
 import { Upload, FileText, Sparkles, Download } from "lucide-react";
-import Button from "@/components/ui/Button";
 
 const steps = [
   {
-    number: "01",
+    n: "01",
     icon: Upload,
     title: "Upload your CV",
-    description:
-      "Drop your existing CV in PDF or DOCX format. We parse it instantly and structure every section.",
+    description: "Drop your existing PDF or DOCX. We parse and structure every section automatically in seconds.",
+    color: "bg-brand-500",
+    light: "bg-brand-50 text-brand-600 border-brand-100",
   },
   {
-    number: "02",
+    n: "02",
     icon: FileText,
-    title: "Paste job descriptions",
-    description:
-      "Add one or more job postings you're targeting. We analyze them for keywords and requirements.",
+    title: "Paste job offers",
+    description: "Add one or multiple job descriptions. We extract keywords, tools, and requirements — ranked by frequency.",
+    color: "bg-green-500",
+    light: "bg-green-50 text-green-600 border-green-100",
   },
   {
-    number: "03",
+    n: "03",
     icon: Sparkles,
     title: "Get your optimized CV",
-    description:
-      "Our AI aligns your content to the job without inventing anything. Review a match score and recommendations.",
+    description: "Our AI aligns your content to the job without inventing anything. Review the match score and changes before accepting.",
+    color: "bg-violet-500",
+    light: "bg-violet-50 text-violet-600 border-violet-100",
   },
   {
-    number: "04",
+    n: "04",
     icon: Download,
-    title: "Pick a template & export",
-    description:
-      "Choose a professional template and export your polished CV as PDF or DOCX in seconds.",
+    title: "Export & apply",
+    description: "Pick a professional template and export as PDF or DOCX in one click. Ready to send.",
+    color: "bg-amber-500",
+    light: "bg-amber-50 text-amber-600 border-amber-100",
   },
 ];
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="py-24 bg-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="text-center mb-14">
-          <p className="text-sm font-semibold text-indigo-600 uppercase tracking-wide mb-3">
-            How it works
-          </p>
-          <h2 className="text-4xl font-bold text-indigo-950 mb-4">
-            Four steps to a better CV
-          </h2>
-          <p className="text-slate-500 text-lg max-w-xl mx-auto">
-            The entire process takes under 5 minutes. No account required for
-            your first two optimizations.
-          </p>
-        </div>
+    <section id="how-it-works" className="py-28 bg-white relative overflow-hidden">
+      {/* Side glow */}
+      <div className="absolute -right-40 top-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(ellipse, rgba(99,102,241,0.06) 0%, transparent 70%)" }} />
 
-        <div className="relative">
-          <div className="hidden lg:block absolute top-12 left-0 right-0 h-px bg-slate-200 mx-24" />
+      <div className="relative z-10 max-w-6xl mx-auto px-5 sm:px-8">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {steps.map(({ number, icon: Icon, title, description }) => (
-              <div key={number} className="relative flex flex-col items-center text-center">
-                <div className="relative z-10 w-24 h-24 bg-white border-2 border-slate-200 rounded-2xl flex flex-col items-center justify-center mb-5 shadow-sm">
-                  <span className="text-xs font-bold text-slate-300 absolute top-2 right-3">
-                    {number}
-                  </span>
-                  <Icon size={28} className="text-indigo-500" />
-                </div>
-                <h3 className="font-semibold text-indigo-950 mb-2">{title}</h3>
-                <p className="text-sm text-slate-500 leading-relaxed">{description}</p>
-              </div>
-            ))}
+          {/* Left — text */}
+          <div>
+            <p className="text-xs font-bold tracking-widest uppercase text-brand-500 mb-4">How it works</p>
+            <h2 className="text-4xl sm:text-5xl font-black text-night-900 leading-tight tracking-tight mb-6">
+              From raw CV to{" "}
+              <span className="gradient-text">perfect fit</span>
+              <br />in 4 steps
+            </h2>
+            <p className="text-night-500 text-lg leading-relaxed mb-8">
+              The entire process takes under 5 minutes. No account required
+              for your first two optimizations.
+            </p>
+            <Link
+              href="/app"
+              className="inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-600 text-white font-semibold text-[15px] px-6 py-3.5 rounded-xl shadow-md shadow-brand-500/20 hover:shadow-brand-500/30 transition-all duration-200"
+            >
+              Try for free — no signup
+            </Link>
           </div>
-        </div>
 
-        <div className="text-center mt-14">
-          <Link href="/app">
-            <Button variant="cta" size="lg">
-              Try it now — no signup needed
-            </Button>
-          </Link>
+          {/* Right — steps */}
+          <div className="relative">
+            {/* Connector line */}
+            <div className="absolute left-5 top-10 bottom-10 w-px bg-gradient-to-b from-brand-200 via-night-200 to-transparent" />
+
+            <div className="space-y-6">
+              {steps.map(({ n, icon: Icon, title, description, light }) => (
+                <div key={n} className="flex gap-5 group">
+                  {/* Icon */}
+                  <div className={`relative z-10 flex-shrink-0 w-10 h-10 rounded-xl border ${light} flex items-center justify-center bg-white shadow-sm group-hover:scale-105 transition-transform duration-200`}>
+                    <Icon size={17} />
+                  </div>
+
+                  {/* Content */}
+                  <div className="pt-1.5">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-[10px] font-black text-night-300 tracking-widest">{n}</span>
+                      <h3 className="text-[15px] font-semibold text-night-800">{title}</h3>
+                    </div>
+                    <p className="text-sm text-night-500 leading-relaxed">{description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -1,42 +1,41 @@
 import Link from "next/link";
-import { Check, Zap } from "lucide-react";
-import Button from "@/components/ui/Button";
-import { cn } from "@/lib/utils";
+import { Check, Zap, X } from "lucide-react";
 
 const plans = [
   {
     name: "Free",
     price: "€0",
     period: "forever",
-    description: "Perfect to try CVMatch AI on your next application.",
+    description: "Try CVMatch AI risk-free. No credit card.",
     features: [
-      "2 CV optimizations / month",
-      "PDF & DOCX upload",
-      "Match score",
-      "3 free templates",
-      "PDF export",
+      { text: "2 CV optimizations / month", included: true },
+      { text: "PDF & DOCX upload", included: true },
+      { text: "Match score & keywords", included: true },
+      { text: "3 free templates", included: true },
+      { text: "PDF export", included: true },
+      { text: "Unlimited optimizations", included: false },
+      { text: "Premium templates", included: false },
+      { text: "DOCX export", included: false },
     ],
-    missing: ["Unlimited optimizations", "Premium templates", "DOCX export", "Version history"],
-    cta: "Get started free",
+    cta: "Start for free",
     href: "/app",
     highlighted: false,
   },
   {
     name: "Pro",
     price: "€9",
-    period: "/ month",
-    description: "For active job seekers who apply to multiple positions.",
+    period: "per month",
+    description: "For active job seekers. Cancel anytime.",
     features: [
-      "Unlimited optimizations",
-      "All file formats",
-      "Advanced match score",
-      "10+ premium templates",
-      "PDF & DOCX export",
-      "Version history",
-      "Multi-job comparison",
-      "Priority processing",
+      { text: "Unlimited optimizations", included: true },
+      { text: "All file formats", included: true },
+      { text: "Advanced match score", included: true },
+      { text: "10+ premium templates", included: true },
+      { text: "PDF & DOCX export", included: true },
+      { text: "Version history", included: true },
+      { text: "Multi-job comparison", included: true },
+      { text: "Priority processing", included: true },
     ],
-    missing: [],
     cta: "Start 7-day free trial",
     href: "/app",
     highlighted: true,
@@ -45,17 +44,19 @@ const plans = [
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="py-24 bg-slate-50">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <section id="pricing" className="py-28 bg-white relative overflow-hidden">
+      <div className="absolute left-1/2 bottom-0 -translate-x-1/2 w-[600px] h-[300px] pointer-events-none"
+        style={{ background: "radial-gradient(ellipse, rgba(99,102,241,0.05) 0%, transparent 70%)" }} />
+
+      <div className="relative z-10 max-w-6xl mx-auto px-5 sm:px-8">
+        {/* Header */}
         <div className="text-center mb-14">
-          <p className="text-sm font-semibold text-indigo-600 uppercase tracking-wide mb-3">
-            Pricing
-          </p>
-          <h2 className="text-4xl font-bold text-indigo-950 mb-4">
+          <p className="text-xs font-bold tracking-widest uppercase text-brand-500 mb-4">Pricing</p>
+          <h2 className="text-4xl sm:text-5xl font-black text-night-900 tracking-tight mb-4">
             Simple, honest pricing
           </h2>
-          <p className="text-slate-500 text-lg max-w-xl mx-auto">
-            Start for free, upgrade when you need more. No hidden fees.
+          <p className="text-night-500 text-lg max-w-md mx-auto">
+            Start free. Upgrade when you need more. No hidden fees, ever.
           </p>
         </div>
 
@@ -63,64 +64,71 @@ export default function Pricing() {
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={cn(
-                "rounded-2xl border p-8 flex flex-col",
+              className={`relative rounded-2xl p-8 flex flex-col ${
                 plan.highlighted
-                  ? "bg-indigo-500 border-indigo-500 text-white shadow-xl"
-                  : "bg-white border-slate-200"
-              )}
+                  ? "bg-night-950 border border-night-800 shadow-2xl"
+                  : "bg-white border border-night-200"
+              }`}
             >
               {plan.highlighted && (
-                <div className="inline-flex items-center gap-1.5 bg-white/20 rounded-full px-3 py-1 text-xs font-semibold text-white mb-4 self-start">
-                  <Zap size={12} />
-                  Most popular
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
+                  <span className="inline-flex items-center gap-1.5 bg-brand-500 text-white text-xs font-bold px-3.5 py-1.5 rounded-full shadow-lg shadow-brand-500/30">
+                    <Zap size={11} /> Most popular
+                  </span>
                 </div>
               )}
 
-              <div className="mb-6">
-                <h3 className={cn("font-bold text-lg mb-1", plan.highlighted ? "text-white" : "text-indigo-950")}>
+              <div className="mb-7">
+                <h3 className={`text-lg font-bold mb-1 ${plan.highlighted ? "text-white" : "text-night-900"}`}>
                   {plan.name}
                 </h3>
-                <div className="flex items-baseline gap-1 mb-2">
-                  <span className={cn("text-4xl font-bold", plan.highlighted ? "text-white" : "text-indigo-950")}>
+                <div className="flex items-baseline gap-1.5 mb-2">
+                  <span className={`text-5xl font-black ${plan.highlighted ? "text-white" : "text-night-900"}`}>
                     {plan.price}
                   </span>
-                  <span className={cn("text-sm", plan.highlighted ? "text-indigo-200" : "text-slate-400")}>
+                  <span className={`text-sm font-medium ${plan.highlighted ? "text-night-400" : "text-night-400"}`}>
                     {plan.period}
                   </span>
                 </div>
-                <p className={cn("text-sm", plan.highlighted ? "text-indigo-100" : "text-slate-500")}>
+                <p className={`text-sm ${plan.highlighted ? "text-night-400" : "text-night-500"}`}>
                   {plan.description}
                 </p>
               </div>
 
-              <ul className="space-y-2.5 mb-8 flex-1">
-                {plan.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2.5 text-sm">
-                    <Check size={16} className={cn("mt-0.5 flex-shrink-0", plan.highlighted ? "text-emerald-300" : "text-emerald-500")} />
-                    <span className={plan.highlighted ? "text-white" : "text-slate-700"}>{f}</span>
+              <ul className="space-y-3 mb-8 flex-1">
+                {plan.features.map(({ text, included }) => (
+                  <li key={text} className="flex items-center gap-3 text-sm">
+                    {included ? (
+                      <Check size={15} className="text-green-500 flex-shrink-0" />
+                    ) : (
+                      <X size={15} className="text-night-600 flex-shrink-0" />
+                    )}
+                    <span className={included
+                      ? plan.highlighted ? "text-night-100" : "text-night-700"
+                      : "text-night-500 line-through"
+                    }>
+                      {text}
+                    </span>
                   </li>
                 ))}
               </ul>
 
-              <Link href={plan.href} className="block">
-                <Button
-                  variant={plan.highlighted ? "secondary" : "outline"}
-                  size="lg"
-                  className={cn(
-                    "w-full font-semibold",
-                    plan.highlighted && "bg-white text-indigo-600 hover:bg-indigo-50"
-                  )}
-                >
-                  {plan.cta}
-                </Button>
+              <Link
+                href={plan.href}
+                className={`block text-center font-semibold text-[15px] py-3.5 rounded-xl transition-all duration-150 ${
+                  plan.highlighted
+                    ? "bg-brand-500 hover:bg-brand-400 text-white shadow-lg shadow-brand-500/25"
+                    : "bg-night-900 hover:bg-night-800 text-white"
+                }`}
+              >
+                {plan.cta}
               </Link>
             </div>
           ))}
         </div>
 
-        <p className="text-center text-sm text-slate-400 mt-8">
-          All plans include data privacy. We never share your CV data.
+        <p className="text-center text-sm text-night-400 mt-8">
+          Your CV data is encrypted and never shared. GDPR compliant.
         </p>
       </div>
     </section>
