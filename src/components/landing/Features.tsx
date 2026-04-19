@@ -1,110 +1,93 @@
 import { Upload, Search, Sliders, ShieldCheck, BarChart2, Palette } from "lucide-react";
 
-const features = [
+const cards = [
   {
-    icon: Upload,
-    title: "Smart CV Import",
-    description: "Drop your PDF or DOCX. We extract every section instantly — experience, skills, education, certifications, projects.",
-    gradient: "from-brand-500 to-brand-400",
-    bg: "bg-brand-50",
-    border: "border-brand-100",
-    iconColor: "text-brand-600",
-    size: "col-span-2 md:col-span-1 row-span-1",
+    icon: Upload, label: "Smart CV Import",
+    desc: "Drop your PDF or DOCX. We extract every section instantly — experience, skills, education, certifications, projects.",
+    iconBg: "#eef2ff", iconColor: "#6366f1", span: 1,
   },
   {
-    icon: Search,
-    title: "Job Description Analysis",
-    description: "Paste one or multiple offers. We surface recurring keywords, required tools, responsibilities — ranked by importance.",
-    gradient: "from-green-500 to-green-400",
-    bg: "bg-green-50",
-    border: "border-green-100",
-    iconColor: "text-green-600",
-    size: "col-span-2 md:col-span-1 row-span-1",
+    icon: Search, label: "Job Analysis",
+    desc: "Paste one or multiple offers. We surface keywords, required tools, and responsibilities — ranked by importance.",
+    iconBg: "#ecfdf5", iconColor: "#10b981", span: 1,
   },
   {
-    icon: Sliders,
-    title: "Intelligent Alignment",
-    description: "We reorder, rephrase, and densify your existing content to match what the recruiter is actually looking for. Nothing invented.",
-    gradient: "from-violet-500 to-brand-500",
-    bg: "bg-violet-50",
-    border: "border-violet-100",
-    iconColor: "text-violet-600",
-    size: "col-span-2 md:col-span-2 row-span-1",
+    icon: Sliders, label: "Intelligent Alignment",
+    desc: "We reorder, rephrase, and densify your existing content to match what the recruiter is actually looking for. Nothing invented. Ever.",
+    iconBg: "#f5f3ff", iconColor: "#8b5cf6", span: 2,
   },
   {
-    icon: ShieldCheck,
-    title: "Ethical AI Guardrails",
-    description: "We never fabricate skills or experience. Gaps are shown clearly. You stay in control of every change.",
-    gradient: "from-amber-500 to-amber-400",
-    bg: "bg-amber-50",
-    border: "border-amber-100",
-    iconColor: "text-amber-600",
-    size: "col-span-2 md:col-span-2 row-span-1",
+    icon: ShieldCheck, label: "Ethical Guardrails",
+    desc: "We never fabricate skills or experience. Every gap is surfaced clearly. You review every single change before it's applied.",
+    iconBg: "#fffbeb", iconColor: "#d97706", span: 2,
   },
   {
-    icon: BarChart2,
-    title: "Match Score",
-    description: "See a real-time match score broken down by keywords, experience, skills, and education — with clear gaps highlighted.",
-    gradient: "from-blue-500 to-brand-400",
-    bg: "bg-blue-50",
-    border: "border-blue-100",
-    iconColor: "text-blue-600",
-    size: "col-span-2 md:col-span-1 row-span-1",
+    icon: BarChart2, label: "Match Score",
+    desc: "Real-time score by section — keywords, experience, skills, education. Clear and actionable.",
+    iconBg: "#eff6ff", iconColor: "#3b82f6", span: 1,
   },
   {
-    icon: Palette,
-    title: "Pro Templates",
-    description: "Minimal, corporate, ATS-ready. Export to PDF or DOCX in one click.",
-    gradient: "from-pink-500 to-rose-400",
-    bg: "bg-pink-50",
-    border: "border-pink-100",
-    iconColor: "text-pink-600",
-    size: "col-span-2 md:col-span-1 row-span-1",
+    icon: Palette, label: "Pro Templates",
+    desc: "Minimal, corporate, ATS-ready. Export PDF or DOCX instantly.",
+    iconBg: "#fff1f2", iconColor: "#f43f5e", span: 1,
   },
 ];
 
 export default function Features() {
   return (
-    <section id="features" className="py-28 bg-night-950 relative overflow-hidden">
+    <section id="features" style={{ background: "#020617", padding: "100px 0", position: "relative", overflow: "hidden" }}>
 
-      {/* Background glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[400px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(ellipse, rgba(99,102,241,0.15) 0%, transparent 70%)" }} />
+      {/* Top glow */}
+      <div style={{
+        position: "absolute", top: -200, left: "50%", transform: "translateX(-50%)",
+        width: 800, height: 400, borderRadius: "50%", pointerEvents: "none",
+        background: "radial-gradient(ellipse, rgba(99,102,241,0.2) 0%, transparent 70%)",
+      }} />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-5 sm:px-8">
+      <div className="container-xl" style={{ position: "relative", zIndex: 1 }}>
+
         {/* Header */}
-        <div className="text-center mb-16">
-          <p className="text-xs font-bold tracking-widest uppercase text-brand-400 mb-4">
+        <div style={{ textAlign: "center", marginBottom: 64 }}>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#818cf8", marginBottom: 16 }}>
             Everything you need
           </p>
-          <h2 className="text-4xl sm:text-5xl font-black text-white leading-tight tracking-tight mb-4">
+          <h2 style={{ fontSize: "clamp(32px, 4vw, 52px)", fontWeight: 900, color: "#fff", letterSpacing: "-0.03em", lineHeight: 1.1, marginBottom: 16 }}>
             Built for serious job seekers
           </h2>
-          <p className="text-night-400 text-lg max-w-xl mx-auto leading-relaxed">
-            Stop spending hours adapting your CV manually. Let AI handle the
-            alignment while you stay in full control.
+          <p style={{ fontSize: 17, color: "#64748b", maxWidth: 500, margin: "0 auto", lineHeight: 1.7 }}>
+            Stop adapting your CV manually. Let AI handle the alignment while you stay in full control.
           </p>
         </div>
 
         {/* Bento grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {features.map(({ icon: Icon, title, description, bg, border, iconColor, size }) => (
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
+          {cards.map(({ icon: Icon, label, desc, iconBg, iconColor, span }) => (
             <div
-              key={title}
-              className={`${size} group relative bg-night-900 border border-night-800 rounded-2xl p-6 overflow-hidden hover:border-night-700 transition-all duration-200 cursor-default`}
+              key={label}
+              style={{
+                gridColumn: `span ${span}`,
+                background: "#0f172a",
+                border: "1px solid #1e293b",
+                borderRadius: 16,
+                padding: 28,
+                transition: "border-color 0.2s",
+              }}
             >
-              {/* Subtle glow on hover */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{ background: "radial-gradient(ellipse at 30% 30%, rgba(99,102,241,0.06) 0%, transparent 70%)" }} />
-
-              <div className={`relative z-10 w-10 h-10 ${bg} border ${border} rounded-xl flex items-center justify-center mb-4`}>
-                <Icon size={18} className={iconColor} />
+              <div style={{ width: 40, height: 40, borderRadius: 10, background: iconBg, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 16 }}>
+                <Icon size={18} color={iconColor} />
               </div>
-              <h3 className="relative z-10 font-semibold text-white mb-2 text-[15px]">{title}</h3>
-              <p className="relative z-10 text-sm text-night-400 leading-relaxed">{description}</p>
+              <h3 style={{ fontSize: 15, fontWeight: 600, color: "#fff", marginBottom: 8 }}>{label}</h3>
+              <p style={{ fontSize: 14, color: "#64748b", lineHeight: 1.65 }}>{desc}</p>
             </div>
           ))}
         </div>
+
+        {/* Mobile stacked fallback via CSS override */}
+        <style>{`
+          @media (max-width: 767px) {
+            #features-grid > div { grid-column: span 4 !important; }
+          }
+        `}</style>
       </div>
     </section>
   );

@@ -8,90 +8,79 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const fn = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", fn, { passive: true });
+    return () => window.removeEventListener("scroll", fn);
   }, []);
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-white/80 backdrop-blur-xl border-b border-night-200/60 shadow-sm"
-          : "bg-transparent"
-      }`}
+      style={{
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
+        transition: "background 0.2s, box-shadow 0.2s",
+        background: scrolled ? "rgba(255,255,255,0.92)" : "transparent",
+        backdropFilter: scrolled ? "blur(20px)" : "none",
+        WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
+        borderBottom: scrolled ? "1px solid #e2e8f0" : "none",
+      }}
     >
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-6">
+      <div className="container-xl" style={{ height: 64, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24 }}>
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
-          <div className="w-8 h-8 rounded-lg bg-brand-500 flex items-center justify-center">
+        <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none", flexShrink: 0 }}>
+          <div style={{ width: 32, height: 32, borderRadius: 8, background: "#6366f1", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M8 2L13 5.5V10.5L8 14L3 10.5V5.5L8 2Z" stroke="white" strokeWidth="1.5" strokeLinejoin="round"/>
-              <circle cx="8" cy="8" r="2" fill="white"/>
+              <path d="M8 2L13 5.5V10.5L8 14L3 10.5V5.5L8 2Z" stroke="white" strokeWidth="1.5" strokeLinejoin="round" />
+              <circle cx="8" cy="8" r="2" fill="white" />
             </svg>
           </div>
-          <span className={`text-[15px] font-bold tracking-tight ${scrolled ? "text-night-900" : "text-night-900"}`}>
-            CVMatch<span className="text-brand-500">AI</span>
+          <span style={{ fontWeight: 700, fontSize: 16, color: "#0f172a", letterSpacing: "-0.02em" }}>
+            CVMatch<span style={{ color: "#6366f1" }}>AI</span>
           </span>
         </Link>
 
-        {/* Nav links */}
-        <nav className="hidden md:flex items-center gap-7">
-          {["Features", "How it works", "Pricing"].map((item) => (
-            <Link
-              key={item}
-              href={`/#${item.toLowerCase().replace(/\s+/g, "-")}`}
-              className="text-sm font-medium text-night-600 hover:text-night-900 transition-colors duration-150"
+        {/* Nav */}
+        <nav style={{ display: "flex", gap: 28, alignItems: "center" }} className="hidden md:flex">
+          {[["Features", "#features"], ["How it works", "#how-it-works"], ["Pricing", "#pricing"]].map(([label, href]) => (
+            <Link key={label} href={href}
+              style={{ fontSize: 14, fontWeight: 500, color: "#475569", textDecoration: "none", transition: "color 0.15s" }}
+              onMouseEnter={e => (e.currentTarget.style.color = "#0f172a")}
+              onMouseLeave={e => (e.currentTarget.style.color = "#475569")}
             >
-              {item}
+              {label}
             </Link>
           ))}
         </nav>
 
-        {/* Actions */}
-        <div className="hidden md:flex items-center gap-3">
-          <Link
-            href="/app"
-            className="text-sm font-medium text-night-600 hover:text-night-900 transition-colors duration-150 px-1"
-          >
-            Sign in
-          </Link>
-          <Link
-            href="/app"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold bg-brand-500 hover:bg-brand-600 text-white px-4 py-2 rounded-lg transition-colors duration-150"
-          >
+        {/* CTA */}
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }} className="hidden md:flex">
+          <Link href="/app" style={{ fontSize: 14, fontWeight: 500, color: "#475569", textDecoration: "none" }}>Sign in</Link>
+          <Link href="/app" style={{
+            display: "inline-flex", alignItems: "center", gap: 6,
+            background: "#6366f1", color: "#fff", fontWeight: 600, fontSize: 14,
+            padding: "8px 16px", borderRadius: 8, textDecoration: "none",
+            transition: "background 0.15s",
+          }}>
             Get started free
           </Link>
         </div>
 
-        {/* Mobile toggle */}
-        <button
-          onClick={() => setOpen(!open)}
-          className="md:hidden p-2 rounded-lg text-night-600 hover:bg-night-100 cursor-pointer transition-colors duration-150"
-          aria-label="Menu"
-        >
+        {/* Mobile */}
+        <button onClick={() => setOpen(!open)} className="md:hidden"
+          style={{ padding: 8, borderRadius: 8, border: "none", background: "none", cursor: "pointer", color: "#475569" }}>
           {open ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
 
-      {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-white border-t border-night-100 px-5 py-5 flex flex-col gap-4">
-          {["Features", "How it works", "Pricing"].map((item) => (
-            <Link
-              key={item}
-              href={`/#${item.toLowerCase().replace(/\s+/g, "-")}`}
-              className="text-sm font-medium text-night-700"
-              onClick={() => setOpen(false)}
-            >
-              {item}
+        <div style={{ background: "#fff", borderTop: "1px solid #e2e8f0", padding: "16px 24px 24px", display: "flex", flexDirection: "column", gap: 16 }}>
+          {[["Features", "#features"], ["How it works", "#how-it-works"], ["Pricing", "#pricing"]].map(([label, href]) => (
+            <Link key={label} href={href} onClick={() => setOpen(false)}
+              style={{ fontSize: 14, fontWeight: 500, color: "#334155", textDecoration: "none" }}>
+              {label}
             </Link>
           ))}
-          <Link
-            href="/app"
-            className="mt-1 inline-flex items-center justify-center text-sm font-semibold bg-brand-500 text-white px-4 py-2.5 rounded-lg"
-            onClick={() => setOpen(false)}
-          >
+          <Link href="/app" onClick={() => setOpen(false)}
+            style={{ display: "flex", justifyContent: "center", background: "#6366f1", color: "#fff", fontWeight: 600, fontSize: 14, padding: "12px", borderRadius: 8, textDecoration: "none" }}>
             Get started free
           </Link>
         </div>
