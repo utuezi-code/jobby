@@ -1,26 +1,48 @@
-import type { Metadata } from "next";
-import "./globals.css";
+import type { Metadata, Viewport } from 'next'
+import './globals.css'
+import ServiceWorkerRegistration from '@/components/vitib/ServiceWorkerRegistration'
 
 export const metadata: Metadata = {
-  title: "CVMatch AI — Optimize Your CV for Every Job",
+  title: 'VITIB Digital Academy — FEMUA 2026',
   description:
-    "AI-powered CV optimizer that adapts your resume to any job description. Get more interviews without lying about your experience.",
-  openGraph: {
-    title: "CVMatch AI — Optimize Your CV for Every Job",
-    description:
-      "AI-powered CV optimizer that adapts your resume to any job description. Get more interviews without lying about your experience.",
-    type: "website",
+    "Rejoignez l'académie numérique du futur. Intelligence artificielle, cybersécurité, data et entrepreneuriat. Laissez vos coordonnées pour être informé du lancement des programmes VITIB.",
+  applicationName: 'VITIB Digital Academy',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'VITIB',
   },
-};
+  formatDetection: { telephone: false },
+  openGraph: {
+    title: 'VITIB Digital Academy — FEMUA 2026',
+    description:
+      "Formations d'excellence en numérique et IA. Manifestez votre intérêt dès maintenant.",
+    type: 'website',
+  },
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: '#0b1e3e',
+}
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="en" className="h-full scroll-smooth">
-      <body className="min-h-full flex flex-col antialiased">{children}</body>
+    <html lang="fr" className="h-full">
+      <head>
+        <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+      </head>
+      <body className="min-h-full antialiased">
+        {children}
+        <ServiceWorkerRegistration />
+      </body>
     </html>
-  );
+  )
 }
